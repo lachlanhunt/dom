@@ -2,12 +2,13 @@
 
 ANOLIS = anolis
 
-all: dom-core.html ../xref/xrefs/dom/dom.json
+all: Overview.html ../xref/xrefs/dom/dom.json
 
 ../xref/xrefs/dom/dom.json: Overview.src.html Makefile
 	$(ANOLIS) --dump-xrefs=$@ $< /tmp/spec
 
-dom-core.html: Overview.src.html ../xref Makefile
+Overview.html: Overview.src.html ../xref Makefile
 	$(ANOLIS) --omit-optional-tags --quote-attr-values --xref="../xref" \
-	--w3c-compat-xref-a-placement --enable=xspecxref --enable=refs \
-	--filter=".publish, .w3conly, title + style" $< $@
+	--w3c-compat-xref-a-placement --w3c-compat-substitutions --w3c-status=ED \
+	--enable=xspecxref --enable=refs \
+	--filter=".publish, .whatwgonly, title + style" $< $@
